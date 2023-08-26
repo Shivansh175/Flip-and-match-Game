@@ -1,6 +1,8 @@
 var openedCards=[];
+var score=0,maxScore=0;
 
-
+$(".score_menu #score").text("Your Score : "+score);
+$(".score_menu #maxScore").text("High Score : "+maxScore);
 //For switching between Game and home screens
 $("#play").click(function()
 {
@@ -23,20 +25,20 @@ $(".front_view").addClass("visible");
 
 $(".grid_cell .front_view").click(function()
 {
-    var cellId = $(this).parent().attr("id");
+    if(openedCards.length<2)
+    {
+        var cellId = $(this).parent().attr("id");
+        $("#"+cellId).css("transform","perspective(600px) rotateY(180deg)").css("transition"," transform 0.5s ease-out");
+    
+        setTimeout(function(){
+            $("#"+cellId +" .front_view").toggleClass("visible");
+            $("#"+cellId +" .back_view").toggleClass("visible");
+        },150);
 
-    $("#"+cellId).css("transform","perspective(600px) rotateY(180deg)").css("transition"," transform 0.5s ease-out");
-
-
-    setTimeout(function(){
-        $("#"+cellId +" .front_view").toggleClass("visible");
-        $("#"+cellId +" .back_view").toggleClass("visible");
-    },150);
-
-    openedCards.push(cellId);
-    checkCards();
+        openedCards.push(cellId);
+        checkCards();
+    }
 });
-
 // $(".grid_cell .back_view").click(function()
 // {
 //     // var cellId = $(this).parent().attr("id");
@@ -61,7 +63,12 @@ function flipBackTheCards()
         $(" .front_view").addClass("visible");
         $(" .back_view").removeClass("visible");
     },150);
-    openedCards=[];
+
+    setTimeout(function()
+    {
+        openedCards=[];
+    },1000);
+        
 }
 
 
@@ -76,8 +83,7 @@ function checkCards()
 {
     var img0=$("#"+openedCards[0]+" .back_view img").attr("src");
     var img1=$("#"+openedCards[1]+" .back_view img").attr("src");
-    if(openedCards.length<2);
-    else if(openedCards.length===2)
+    if(openedCards.length===2)
     {
         var cell1,cell2;
         cell1="#"+openedCards[0];
@@ -85,18 +91,20 @@ function checkCards()
         if(img0===img1)
         {
             setTimeout(function(){
-                $(cell1).css("visibility","hidden");
-                $(cell2).css("visibility","hidden");
+                score++;
+                if(maxScore<score) maxScore=score;
+                $(".score_menu #score").text("Your Score : "+score);
+                $(".score_menu #maxScore").text("High Score : "+maxScore);
+                $(cell1).addClass("correct");
+                $(cell2).addClass("correct");
+                openedCards=[];
             },1000);
-            openedCards=[];
         }
         else
         {
             setTimeout(flipBackTheCards,800);
         }
     }
-    
-
 }
 
 //function to executed in case of correct cards
