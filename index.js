@@ -6,7 +6,7 @@ $(".score_menu #maxScore").text("High Score : "+maxScore);
 //For switching between Game and home screens
 $("#play").click(function()
 {
-    $(".game_screen").slideDown(100);
+    $(".game_screen").slideDown(1);
     $(".game_screen").css("display","flex");
     $(".home_screen").css("display","none");
     
