@@ -9,6 +9,10 @@ $("#play").click(function()
     $(".game_screen").slideDown(1);
     $(".game_screen").css("display","flex");
     $(".home_screen").css("display","none");
+
+    var aud=new Audio("./sounds/click.wav");
+    aud.playbackRate=2.5;
+    aud.play();
     
 });
 $(".exit_menu h2").click(function()
@@ -16,6 +20,10 @@ $(".exit_menu h2").click(function()
     $(".home_screen").slideUp(1000);
     $(".home_screen").css("display","flex");
     $(".game_screen").css("display","none");
+
+    var aud=new Audio("./sounds/click.wav");
+    aud.playbackRate=2.5;
+    aud.play();
     
 });
 
@@ -28,8 +36,16 @@ $(".grid_cell .front_view").click(function()
     if(openedCards.length<2)
     {
         var cellId = $(this).parent().attr("id");
+
+        var aud=new Audio("./sounds/open_card.mp3");
+        aud.playbackRate=2.5;
+        aud.play();
+
+
+
         $("#"+cellId).css("transform","perspective(600px) rotateY(180deg)").css("transition"," transform 0.5s ease-out");
-    
+        
+
         setTimeout(function(){
             $("#"+cellId +" .front_view").toggleClass("visible");
             $("#"+cellId +" .back_view").toggleClass("visible");
@@ -59,10 +75,20 @@ $(".grid_cell .front_view").click(function()
 function flipBackTheCards()
 {
     $("div.grid_cell").css("transform","perspective(600px) rotateY(0deg)").css("transition"," transform 0.5s ease-out ");
+
     setTimeout(function(){
         $(" .front_view").addClass("visible");
         $(" .back_view").removeClass("visible");
     },150);
+    
+    // $("div.grid_cell").effect("shake",{times:10},1000);
+
+
+
+    var aud=new Audio("./sounds/wrong_card.mp3");
+    aud.playbackRate=4;
+    $(aud).prop("volume",0.15);
+    aud.play();
 
     setTimeout(function()
     {
@@ -95,6 +121,12 @@ function checkCards()
                 if(maxScore<score) maxScore=score;
                 $(".score_menu #score").text("Your Score : "+score);
                 $(".score_menu #maxScore").text("High Score : "+maxScore);
+
+                var aud=new Audio("./sounds/matched_card.mp3");
+                // aud.playbackRate=2.5;
+                $(aud).prop("volume",0.3);
+                aud.play();
+
                 $(cell1).addClass("correct");
                 $(cell2).addClass("correct");
                 openedCards=[];
