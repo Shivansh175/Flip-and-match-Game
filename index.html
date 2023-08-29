@@ -12,9 +12,13 @@
         <source src="./sounds/BGM.mp3" type="audio/mp3" >
     </audio> -->
     <section class="game_screen">
-        <div class="score_menu">
-            <h2 id="score">Your Score : 0 </h2>
-            <h2 id="maxScore">High Score : 0 </h2>
+        <div class="menu">
+            <li><img src="./images/high-volume.png" alt=""></li>
+            <li><img src="./images/high-volume.png" alt=""></li>
+            <li><img src="./images/high-volume.png" alt=""></li>
+            <li><img src="./images/high-volume.png" alt=""></li>
+            <li><img src="./images/high-volume.png" alt=""></li>
+            <li><img src="./images/high-volume.png" alt=""></li>
         </div>
         <div class="grid_wrapper">
             <div class="grid_cell" id="cell1">
@@ -146,9 +150,6 @@
                 </div>
             </div>
         </div>
-        <div class="exit_menu">
-            <h2>Exit</h2> 
-        </div>
     </section>
     <section class="home_screen">
         <header >
@@ -159,11 +160,15 @@
             <div class="wrapper">
                 <ul class="game_options">
                     <li class="option_items" id="play">Play</li>
-                    <li class="option_items" id="level">Easy</li>
+                    <li class="option_items" id="level">
+                        <i class="fa-solid fa-caret-left" id="left" style="color: rgba(0, 0, 0, 0.813);"></i>
+                        <p>Easy</p>
+                        <i class="fa-solid fa-caret-right" id="right" style="color: rgba(0, 0, 0, 0.813);"></i>
+                    </li>
                 </ul>
                 <ul class="sounds">
-                    <li id="sound" class="clicked"><img src="./images/high-volume.png" alt=""></li>
-                    <li id="music" class="clicked"><img src="./images/music-note (1).png" alt=""></li>
+                    <li id="sound"><img src="./images/high-volume.png" alt=""></li>
+                    <li id="music"><img src="./images/music-note (1).png" alt=""></li>
                 </ul>
             </div>
         </main>

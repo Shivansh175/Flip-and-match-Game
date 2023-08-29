@@ -1,9 +1,29 @@
 var openedCards=[];
-var sound=0,music=0;
+var sound=1,music=1;
+
+var imgNumbers=["1.png","2.png","3.jpg","4.png","5.jpg","6.jpg","7.jpg","8.png","9.png","10.png","11.png","12.png","13.png","14.png","15.png","16.jpg","17.png","18.jpg"];
+
+var selectedImgs=[];
+for(var i=1,k=1;i<=8;i++,k+=2)
+{
+    var index=Math.floor(Math.random()*imgNumbers.length);
+
+    $("#cell"+k+" .back_view img").attr("src","./images/icon"+imgNumbers[index]);
+   
+    selectedImgs.push(imgNumbers.splice(index,1));
+}
+for(var i=1,k=2;i<=8;i++,k+=2)
+{
+    var index=Math.floor(Math.random()*selectedImgs.length);
+    $("#cell"+k+" .back_view img").attr("src","./images/icon"+selectedImgs[index]);
+    // alert(selectedImgs[index]+extensions[k]);
+    selectedImgs.splice(index,1);
+}
 
 var aud=new Audio("./sounds/BGM.mp3");
 aud.play();
-aud.autoplay;
+$(aud).prop("volume",0.3);
+// aud.autoplay;
 
 $(".sounds li").click(function()
 {
@@ -22,25 +42,62 @@ $(".sounds li").click(function()
     
 });
 
-
-
-
 // $(".score_menu #score").text("Your Score : "+score);
 // $(".score_menu #maxScore").text("High Score : "+maxScore);
 //For switching between Game and home screens
 $("#play").click(function()
 {
     $(".game_screen").slideDown(1);
-    aud.volume(0.1);
     $(".game_screen").css("display","flex");
     $(".home_screen").css("display","none");
     
 });
+var difficulty=["Easy","Medium","Hard"];
+var i=0;
+$("#left").css("visibility","hidden");
+$("#level i").click(function(){
+    var clickedIcon = $(this).attr("id");
+    if(clickedIcon=="left")
+    {
+        i=( i===0 ? 2 : i-1 );
+    }
+    else
+    {
+        i=( i===2 ? 0 : i+1 );
+    }
+
+    if(i===0)
+    {
+        $("#left").css("visibility","hidden");
+    }
+    else
+    {
+        $("#left").css("visibility","visible");
+    }
+    if(i===2)
+    {
+        $("#right").css("visibility","hidden");
+    }
+    else
+    {
+        $("#right").css("visibility","visible");
+    }
+
+    $("#level p").text(difficulty[i]);
+    if(sound==1)
+    {
+        var aud=new Audio("./sounds/click.wav");
+        aud.playbackRate=2.5;
+        aud.play();
+    }
+});
+
 $(".exit_menu h2").click(function()
 {
     $(".home_screen").slideUp(1000);
     $(".home_screen").css("display","flex");
     $(".game_screen").css("display","none");
+
     if(sound==1)
     {
         var aud=new Audio("./sounds/click.wav");
@@ -51,7 +108,7 @@ $(".exit_menu h2").click(function()
     
 });
 
-$("li").click(function()
+$("li:not(#level)").click(function()
 {
     if(sound==1)
     {
@@ -158,10 +215,10 @@ function checkCards()
         if(img0===img1)
         {
             setTimeout(function(){
-                score++;
-                if(maxScore<score) maxScore=score;
-                $(".score_menu #score").text("Your Score : "+score);
-                $(".score_menu #maxScore").text("High Score : "+maxScore);
+                // score++;
+                // if(maxScore<score) maxScore=score;
+                // $(".score_menu #score").text("Your Score : "+score);
+                // $(".score_menu #maxScore").text("High Score : "+maxScore);
 
                 if(sound==1)
                 {
